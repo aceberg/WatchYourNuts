@@ -1,0 +1,13 @@
+[Unit]
+Description=WatchYourNuts
+Documentation=https://github.com/aceberg/WatchYourNuts
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=%i
+ExecStart=/usr/bin/WatchYourNuts -d /home/%i/.config/WatchYourNuts/
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
