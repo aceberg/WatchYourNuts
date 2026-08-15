@@ -5,7 +5,7 @@ import (
 )
 
 // UpdateEntry - update or create Entry
-func UpdateEntry(entry models.Entry) (err error) {
+func UpdateEntry(entry models.Food) (err error) {
 
 	tab := db.Table("entries")
 	err = tab.Save(&entry).Error
@@ -17,13 +17,13 @@ func UpdateEntry(entry models.Entry) (err error) {
 func DeleteEntry(id int) (err error) {
 
 	tab := db.Table("entries")
-	err = tab.Delete(&models.Entry{}, id).Error
+	err = tab.Delete(&models.Food{}, id).Error
 
 	return err
 }
 
 // SelectEntries - get all Entries
-func SelectEntries() (entries []models.Entry, err error) {
+func SelectEntries() (entries []models.Food, err error) {
 
 	tab := db.Table("entries")
 	err = tab.Find(&entries).Error
@@ -32,7 +32,7 @@ func SelectEntries() (entries []models.Entry, err error) {
 }
 
 // SelectEntryByID - get Entry
-func SelectEntryByID(id int) (entry models.Entry, err error) {
+func SelectEntryByID(id int) (entry models.Food, err error) {
 
 	tab := db.Table("entries")
 	err = tab.First(&entry, id).Error
@@ -41,7 +41,7 @@ func SelectEntryByID(id int) (entry models.Entry, err error) {
 }
 
 // SelectEntriesByDate - get all Entries by date
-func SelectEntriesByDate(date string) (entries []models.Entry, err error) {
+func SelectEntriesByDate(date string) (entries []models.Food, err error) {
 
 	tab := db.Table("entries")
 	err = tab.Where("\"DATE\" LIKE ?", date+"%").Find(&entries).Error
@@ -50,7 +50,7 @@ func SelectEntriesByDate(date string) (entries []models.Entry, err error) {
 }
 
 // GetEntriesAfter - get Entries after date
-func GetEntriesAfter(date string) (entries []models.Entry, err error) {
+func GetEntriesAfter(date string) (entries []models.Food, err error) {
 
 	tab := db.Table("entries")
 	err = tab.Where("date > ?", date).Order("date DESC").Find(&entries).Error

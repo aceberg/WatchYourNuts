@@ -4,7 +4,7 @@ import { apiDelFood, apiGetFoods } from "../functions/api";
 
 
 const [foods, setFoods] = createStore<Food[]>([]);
-// const [list, setList] = createStore<string[]>([]);
+const [groups, setGroups] = createStore<string[]>([]);
 
 async function reload() {
 
@@ -12,6 +12,7 @@ async function reload() {
     
     if (data !== null) {
         setFoods(data);
+        setGroups(foods.map(food => food.Group));
     }
 }
 
@@ -23,6 +24,7 @@ async function remove(id: number) {
 
 export const foodStore = {
     foods,
+    groups,
 
     reload,
     remove,

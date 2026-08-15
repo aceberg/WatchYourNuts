@@ -15,6 +15,7 @@ type Conf struct {
 // Food is one food item
 type Food struct {
 	ID    int64 `gorm:"primaryKey"`
+	Date  string
 	Name  string
 	Group string
 	Fat   int64
@@ -23,17 +24,4 @@ type Food struct {
 	Kcal  int64
 	Size  int64
 	Link  string
-}
-
-// Entry is one food eaten
-type Entry struct {
-	ID   int64 `gorm:"primaryKey"`
-	Date string
-	Name string
-	Fat  int64
-	Prot int64
-	Carb int64
-	Kcal int64
-	Size int64
-	Meal string
 }

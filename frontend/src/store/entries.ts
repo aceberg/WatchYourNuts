@@ -1,8 +1,8 @@
 import { createStore } from "solid-js/store";
 import { apiDelEntry, apiGetEntries } from "../functions/api";
-import { Entry } from "../functions/models";
+import { Food } from "../functions/models";
 
-const [entries, setEntries] = createStore<Entry[]>([]);
+const [entries, setEntries] = createStore<Food[]>([]);
 
 async function reload() {
     const data = await apiGetEntries("");

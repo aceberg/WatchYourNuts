@@ -38,7 +38,7 @@ func Start() {
 
 	// Migrate the schema
 	tab = db.Table("entries")
-	err = tab.AutoMigrate(&models.Entry{})
+	err = tab.AutoMigrate(&models.Food{})
 	check.IfError(err)
 
 	tab = db.Table("foods")

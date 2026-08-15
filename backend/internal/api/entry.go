@@ -23,7 +23,7 @@ func deleteEntry(c *gin.Context) {
 }
 
 func getEntries(c *gin.Context) {
-	var entries []models.Entry
+	var entries []models.Food
 	var err error
 
 	date := strings.TrimPrefix(c.Param("date"), "/")
@@ -44,7 +44,7 @@ func getEntries(c *gin.Context) {
 }
 
 func addEntry(c *gin.Context) {
-	var entry models.Entry
+	var entry models.Food
 
 	err := c.ShouldBind(&entry)
 

@@ -1,6 +1,5 @@
 import EntryCard from "../components/Body/EntryCard"
-
-
+import FoodCard from "../components/Body/FoodCard"
 
 function Body() {
 
@@ -8,10 +7,10 @@ function Body() {
   <>
   <div class="row mt-4">
     <div class="col-md mb-4">
-      <EntryCard></EntryCard>
+      <FoodCard></FoodCard>
     </div>
     <div class="col-md mb-4">
-
+      <EntryCard></EntryCard>
     </div>
   </div>
   </>
