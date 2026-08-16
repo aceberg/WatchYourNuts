@@ -1,3 +1,5 @@
+import { Food } from "./models";
+
 export const apiPath = 'http://127.0.0.1:8840';
 
 export const apiGetConfig = async () => {
@@ -39,5 +41,18 @@ export const apiDelFood = async (id:number) => {
 
   await fetch(`${apiPath}/api/food/${id}`, {
     method: "DELETE",
+  });
+};
+
+export const apiAddEntry = async (entry: Food) => {
+
+  console.log("ENtry:", JSON.stringify(entry));
+
+  await fetch(`${apiPath}/api/entry/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(entry),
   });
 };

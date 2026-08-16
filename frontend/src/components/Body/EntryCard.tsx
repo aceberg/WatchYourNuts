@@ -1,5 +1,7 @@
 import { For, onMount } from "solid-js";
 import { entryStore } from "../../store/entries";
+import EntryRow from "./EntryRow";
+import TabHead from "./TabHead";
 
 function EntryCard() {
 
@@ -16,16 +18,12 @@ function EntryCard() {
       <table class="table table-sm table-hover table-borderless">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>KCal</th>
+            <TabHead></TabHead>
           </tr>
         </thead>
         <tbody>
           <For each={entryStore.entries}>{(entry) =>
-            <tr>
-              <td>{entry.Name}</td>
-              <td>{entry.Kcal}</td>
-            </tr>
+            <EntryRow food={entry}></EntryRow>
           }</For>
         </tbody>
       </table>

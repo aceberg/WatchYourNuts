@@ -1,7 +1,7 @@
 import { createMemo, createSignal, For, onMount } from "solid-js";
 import { foodStore } from "../../store/foods";
-import { formatNumber } from "../../functions/format";
-import { IconRight, PencilIcon } from "../../functions/icons";
+import FoodRow from "./FoodRow";
+import TabHead from "./TabHead";
 
 function FoodCard() {
 
@@ -35,27 +35,12 @@ function FoodCard() {
         <thead>
           <tr>
             <th></th>
-            <th>Name</th>
-            <th>Prot</th>
-            <th>Fat</th>
-            <th>Carb</th>
-            <th>KCal</th>
-            <th>Size</th>
-            <th></th>
+            <TabHead></TabHead>
           </tr>
         </thead>
         <tbody>
           <For each={filteredFoods()}>{food =>
-            <tr>
-              <td class="my-btn"><PencilIcon></PencilIcon></td>
-              <td>{food.Name}</td>
-              <td>{formatNumber(food.Prot)}<sub class="opacity-50 small"> P</sub></td>
-              <td>{formatNumber(food.Fat)}<sub class="opacity-50 small"> F</sub></td>
-              <td>{formatNumber(food.Carb)}<sub class="opacity-50 small"> C</sub></td>
-              <td>{formatNumber(food.Kcal)}<sub class="opacity-50 small"> K</sub></td>
-              <td>{food.Size}<sub class="opacity-50 small"> G</sub></td>
-              <td class="my-btn"><IconRight></IconRight></td>
-            </tr>
+            <FoodRow food={food}></FoodRow>
           }</For>
         </tbody>
       </table>
