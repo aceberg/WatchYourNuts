@@ -37,8 +37,9 @@ async function reload() {
 export const configStore = {
     config,
     themePath,
-    setThemePath,
     today,
+
+    setThemePath,
 
     reload,
     changeBackColor,

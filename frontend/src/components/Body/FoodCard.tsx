@@ -36,6 +36,7 @@ function FoodCard() {
           <tr>
             <th></th>
             <TabHead></TabHead>
+            <th></th>
           </tr>
         </thead>
         <tbody>

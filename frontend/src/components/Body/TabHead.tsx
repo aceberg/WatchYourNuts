@@ -9,8 +9,7 @@ function TabHead() {
       <th>Fat</th>
       <th>Carb</th>
       <th>KCal</th>
-      <th>Size</th>
-      <th></th>
+      <th style="width: 5em">Size</th>
     </>
   )
 }
