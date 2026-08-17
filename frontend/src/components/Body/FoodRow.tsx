@@ -14,7 +14,9 @@ function FoodRow(_props: any) {
 
   return (
     <tr>
-      <td class="my-btn"><PencilIcon></PencilIcon></td>
+      <td><a class="my-btn p-2" title="Edit" href={`/editfood/${_props.food.ID}`}>
+        <PencilIcon /></a>
+      </td>
       <BothRow food={_props.food}></BothRow>
       <td>
         <input
@@ -23,7 +25,7 @@ function FoodRow(_props: any) {
           value={size()} onInput={(e) => setSize(Number(e.currentTarget.value))}
         />
       </td>
-      <td class="my-btn" onClick={handleAdd} title="Add"><IconRight></IconRight></td>
+      <td class="my-btn" onClick={handleAdd} title="Add"><IconRight /></td>
     </tr>
   )
 }

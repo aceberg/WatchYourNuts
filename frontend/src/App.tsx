@@ -18,6 +18,7 @@ function App() {
   });
 
   const Config = lazy(() => import("./pages/Config"));
+  const EditFood = lazy(() => import("./pages/EditFood"));
 
   return (
     <>
@@ -26,6 +27,7 @@ function App() {
       <Router>
         <Route path="/" component={Body}/>
         <Route path="/config" component={Config}/>
+        <Route path="/editfood/:id" component={EditFood}/>
       </Router>
     </div>
     </>

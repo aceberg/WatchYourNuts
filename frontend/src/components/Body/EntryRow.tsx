@@ -16,7 +16,7 @@ function EntryRow(_props: any) {
   return (
     <tr>
       <td>
-        <input type="checkbox" class="form-check-input"></input>
+        <input type="checkbox" class="form-check-input" title="Select"></input>
       </td>
       <BothRow food={_props.food}></BothRow>
       <td class="d-flex justify-content-center" style="width: 7em">

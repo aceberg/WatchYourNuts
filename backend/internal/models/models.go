@@ -18,6 +18,7 @@ type Food struct {
 	Date  string
 	Name  string
 	Group string
+	Tag   string
 	Fat   int64
 	Prot  int64
 	Carb  int64

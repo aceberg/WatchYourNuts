@@ -15,11 +15,11 @@ function EntryCard() {
   <div class="card border-primary">
     <div class="card-header">
       <div class="d-flex justify-content-center">
-        <div class="my-btn py-1 px-2 text-body" onClick={() => entryStore.moveDate(-1)}>
+        <div class="my-btn py-1 px-2" onClick={() => entryStore.moveDate(-1)}>
           <CartLeft></CartLeft>
         </div>
         <input type="date" class="form-control form-control-sm w-auto" value={entryStore.entryDate()}></input>
-        <div class="my-btn py-1 px-2 text-body" onClick={() => entryStore.moveDate(1)}>
+        <div class="my-btn py-1 px-2" onClick={() => entryStore.moveDate(1)}>
           <CartRight></CartRight>
         </div>
       </div>

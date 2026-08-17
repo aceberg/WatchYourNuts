@@ -37,3 +37,7 @@ export function formatDate(date:string): string {
 export function formatNumber(amount: number): string {
     return (amount / 100).toString();
 }
+
+export function stringToNumber(amount: string): number {
+    return (Number(amount) * 100);
+}

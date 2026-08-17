@@ -10,6 +10,7 @@ export interface Food {
 	Date:  string;
 	Name:  string;
 	Group: string;
+	Tag:   string;
 	Fat:   number;
 	Prot:  number;
 	Carb:  number;
@@ -23,6 +24,7 @@ export const emptyFood:Food = {
 	Date: "",
 	Name: "",
 	Group: "",
+	Tag:  "",
 	Fat:  0,
 	Prot: 0,
 	Carb: 0,

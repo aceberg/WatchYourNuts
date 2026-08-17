@@ -56,3 +56,16 @@ export const apiAddEntry = async (entry: Food) => {
     body: JSON.stringify(entry),
   });
 };
+
+export const apiAddFood = async (food: Food) => {
+
+  console.log("food:", JSON.stringify(food));
+
+  await fetch(`${apiPath}/api/food`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(food),
+  });
+};
