@@ -1,47 +1,87 @@
-import { For, onMount } from "solid-js";
+import { createMemo, createSignal, For, onMount } from "solid-js";
 import { entryStore } from "../../store/entries";
 import EntryRow from "./EntryRow";
-import TabHead from "./TabHead";
-import { CartLeft, CartRight } from "../../functions/icons";
+import { CalCheckIcon, CartLeft, CartRight } from "../../functions/icons";
 import BothRow from "./BothRow";
+import EntryCopyDel from "./EntryCopyDel";
+import { configStore } from "../../store/configs";
 
 function EntryCard() {
+
+  const [selectedIds, setSelectedIds] = createSignal<number[]>([]);
+
+  const handleSelect = (id: number, checked: boolean) => {
+    setSelectedIds(ids =>
+      checked
+        ? [...ids, id]
+        : ids.filter(x => x !== id)
+    );
+  };
+
+  const handleClearSelected = () => {
+    setSelectedIds([]);
+  }
+
+  const handleDate = async (date: string) => {
+    entryStore.setEntryDate(date);
+    await entryStore.reload();
+  }
 
   onMount(async () => {
     await entryStore.reload();
   });
 
+  const groupedEntries = createMemo(() => {
+    const groups = new Map<string, typeof entryStore.entries>();
+
+    for (const entry of entryStore.entries) {
+      const tag = entry.Tag || "";
+
+      if (!groups.has(tag)) {
+        groups.set(tag, []);
+      }
+
+      groups.get(tag)!.push(entry);
+    }
+    return Array.from(groups.entries()).sort(([a], [b]) => a.localeCompare(b));
+  });
+
   return (
   <div class="card border-primary">
     <div class="card-header">
-      <div class="d-flex justify-content-center">
-        <div class="my-btn py-1 px-2" onClick={() => entryStore.moveDate(-1)}>
-          <CartLeft></CartLeft>
+      <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between">
+          <select class="form-select form-select-sm w-auto" value={entryStore.mealTag()}
+            onChange={e => entryStore.setMealTag(e.currentTarget.value)} title="Meal">
+            {[1, 2, 3, 4, 5, 6, 7].map(n => (
+              <option value={n}>{n}</option>
+            ))}
+          </select>
         </div>
-        <input type="date" class="form-control form-control-sm w-auto" value={entryStore.entryDate()}></input>
-        <div class="my-btn py-1 px-2" onClick={() => entryStore.moveDate(1)}>
-          <CartRight></CartRight>
+        <div class="d-flex justify-content-between">
+          <div class="my-btn py-1 px-2" onClick={() => entryStore.moveDate(-1)} title="Previous Day"><CartLeft /></div>
+          <input type="date" class="form-control form-control-sm w-auto" value={entryStore.entryDate()} onChange={(e) => handleDate(e.currentTarget.value)}></input>
+          <div class="my-btn py-1 px-2" onClick={() => entryStore.moveDate(1)} title="Next Day"><CartRight /></div>
         </div>
+        <div class="my-btn py-1 px-2 ms-3" onClick={() => handleDate(configStore.today())} title="Today"><CalCheckIcon /></div>
       </div>
     </div>
     <div class="card-body table-responsive">
       <table class="table table-sm table-hover table-borderless">
-        <thead>
-          <tr>
-            <th></th>
-            <TabHead></TabHead>
-          </tr>
-        </thead>
         <tbody>
-          <For each={entryStore.entries}>{(entry) =>
-            <EntryRow food={entry}></EntryRow>
-          }</For>
-          <tr><td colSpan={7}><hr></hr></td></tr>
-          <tr><td colSpan={7}><b>Total</b></td></tr>
+          <For each={groupedEntries()}>{([tag, entries]) => (
+            <>
+              <tr><td colspan="100%" class="p-0 text-muted small" title="Meal">{tag}</td></tr>
+              <For each={entries}>{(entry) =>
+                <EntryRow food={entry} onSelect={handleSelect} />}</For>
+            </>
+          )}</For>
+          <EntryCopyDel ids={selectedIds()} clearSelected={handleClearSelected}></EntryCopyDel>
+          <tr class="small"><td colSpan={7}><b>Total</b></td></tr>
           <tr>
             <td></td>
             <BothRow food={entryStore.total()}></BothRow>
-            <td>{entryStore.total().Size}<sub class="opacity-50 small"> G</sub></td>
+            <td class="small">{entryStore.total().Size}<sub class="opacity-50 small"> G</sub></td>
           </tr>
         </tbody>
       </table>

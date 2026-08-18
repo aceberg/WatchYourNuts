@@ -3,23 +3,12 @@ import { apiAddEntry, apiDelEntry, apiGetEntries } from "../functions/api";
 import { emptyFood, Food } from "../functions/models";
 import { createSignal } from "solid-js";
 import { configStore } from "./configs";
+import { changeDate } from "../functions/format";
 
 const [entries, setEntries] = createStore<Food[]>([]);
 const [entryDate, setEntryDate] = createSignal<string>(configStore.today());
 const [total, setTotal] = createSignal<Food>(emptyFood);
-
-function changeDate(date: string, days: number): string {
-  const [year, month, day] = date.split("-").map(Number);
-
-  const d = new Date(year, month - 1, day);
-  d.setDate(d.getDate() + days);
-
-  return [
-    d.getFullYear(),
-    String(d.getMonth() + 1).padStart(2, "0"),
-    String(d.getDate()).padStart(2, "0"),
-  ].join("-");
-}
+const [mealTag, setMealTag] = createSignal<string>("1");
 
 async function reload() {
 
@@ -43,8 +32,15 @@ async function reload() {
     }
 }
 
-async function remove(id: number) {
-    await apiDelEntry(id);
+async function remove(idsArray: number[]) {
+    
+    const ids = new Set(idsArray);
+
+    for (const entry of entries) {
+      if (ids.has(entry.ID)) {
+        await apiDelEntry(entry.ID);
+      }
+    }
     await reload();
 }
 
@@ -67,13 +63,50 @@ async function moveDate(days: number) {
     await reload();
 }
 
+async function copyToDate(idsArray: number[], date: string) {
+    
+    const ids = new Set(idsArray);
+
+    for (const entry of entries) {
+      if (ids.has(entry.ID)) {
+        await apiAddEntry({
+            ...entry,
+            ID: 0,
+            Date: date,
+        });
+      }
+    }
+    await reload();
+}
+
+async function updMealTag(idsArray: number[]) {
+    
+    const ids = new Set(idsArray);
+
+    for (const entry of entries) {
+      if (ids.has(entry.ID)) {
+        await apiAddEntry({
+            ...entry,
+            Tag: mealTag(),
+        });
+      }
+    }
+    await reload();
+}
+
 export const entryStore = {
     entries,
     entryDate,
     total,
+    mealTag,
+
+    setEntryDate,
+    setMealTag,
 
     add,
     reload,
     remove,
     moveDate,
+    copyToDate,
+    updMealTag,
 };

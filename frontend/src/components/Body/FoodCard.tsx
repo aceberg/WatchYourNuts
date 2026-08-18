@@ -1,19 +1,24 @@
 import { createMemo, createSignal, For, onMount } from "solid-js";
 import { foodStore } from "../../store/foods";
 import FoodRow from "./FoodRow";
-import TabHead from "./TabHead";
 import { IconPlus } from "../../functions/icons";
 
 function FoodCard() {
 
   const [selectedGroup, setSelectedGroup] = createSignal("");
+  const [search, setSearch] = createSignal("");
 
   const filteredFoods = createMemo(() => {
     const group = selectedGroup();
+    const q = search().trim().toLowerCase();
 
-    return group
+    const groupMatch = group
     ? foodStore.foods.filter(food => food.Group === group || food.Tag === group)
     : foodStore.foods;
+
+    return q
+    ? groupMatch.filter(food => food.Name.toLowerCase().includes(q))
+    : groupMatch;
   });
 
   onMount(async () => {
@@ -24,7 +29,7 @@ function FoodCard() {
   <div class="card border-primary">
     <div class="card-header">
       <div class="d-flex justify-content-between">
-        <select class="form-select form-select-sm w-auto"
+        <select class="form-select form-select-sm w-auto" title="Tag, Group"
           onChange={e => setSelectedGroup(e.currentTarget.value)}>
             <option value=""></option>
             <For each={foodStore.tags}>{(tag) =>
@@ -34,6 +39,7 @@ function FoodCard() {
               <option value={group}>{group}</option>
             }</For>
         </select>
+        <input type="search" class="form-control form-control-sm w-25" title="Search" placeholder="Search" onInput={e => setSearch(e.currentTarget.value)} value={search()}></input>
         <a class="my-btn p-1 px-2" title="New" href={`/editfood/0`}>
           <IconPlus />
         </a>
@@ -41,13 +47,6 @@ function FoodCard() {
     </div>
     <div class="card-body table-responsive">
       <table class="table table-sm table-hover table-borderless">
-        <thead>
-          <tr>
-            <th style="width: 3em"></th>
-            <TabHead></TabHead>
-            <th></th>
-          </tr>
-        </thead>
         <tbody>
           <For each={filteredFoods()}>{food =>
             <FoodRow food={food}></FoodRow>

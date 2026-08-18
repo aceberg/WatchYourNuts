@@ -41,3 +41,16 @@ export function formatNumber(amount: number): string {
 export function stringToNumber(amount: string): number {
     return (Number(amount) * 100);
 }
+
+export function changeDate(date: string, days: number): string {
+  const [year, month, day] = date.split("-").map(Number);
+
+  const d = new Date(year, month - 1, day);
+  d.setDate(d.getDate() + days);
+
+  return [
+    d.getFullYear(),
+    String(d.getMonth() + 1).padStart(2, "0"),
+    String(d.getDate()).padStart(2, "0"),
+  ].join("-");
+}

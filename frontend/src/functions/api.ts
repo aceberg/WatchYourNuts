@@ -46,8 +46,6 @@ export const apiDelFood = async (id:number) => {
 
 export const apiAddEntry = async (entry: Food) => {
 
-  console.log("ENtry:", JSON.stringify(entry));
-
   await fetch(`${apiPath}/api/entry/`, {
     method: "POST",
     headers: {
@@ -58,9 +56,7 @@ export const apiAddEntry = async (entry: Food) => {
 };
 
 export const apiAddFood = async (food: Food) => {
-
-  console.log("food:", JSON.stringify(food));
-
+  
   await fetch(`${apiPath}/api/food`, {
     method: "POST",
     headers: {

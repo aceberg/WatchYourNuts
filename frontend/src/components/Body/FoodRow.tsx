@@ -8,7 +8,7 @@ function FoodRow(_props: any) {
   const [size, setSize] = createSignal(_props.food.Size);
 
   const handleAdd = () => {
-    entryStore.add({..._props.food,ID: 0, Size: 100, Date: entryStore.entryDate(),}, size());
+    entryStore.add({..._props.food,ID: 0, Size: 100, Tag: entryStore.mealTag(), Date: entryStore.entryDate(),}, size());
     setSize(_props.food.Size);
   };
 
@@ -18,10 +18,10 @@ function FoodRow(_props: any) {
         <PencilIcon /></a>
       </td>
       <BothRow food={_props.food}></BothRow>
-      <td>
+      <td class="p-0">
         <input
-          type="number" step="10"
-          class="form-control form-control-sm" style="width: 5em"
+          type="number" step="10" title="Portion Size (g)"
+          class="form-control form-control-sm p-0 ps-1" style="width: 5em"
           value={size()} onInput={(e) => setSize(Number(e.currentTarget.value))}
         />
       </td>

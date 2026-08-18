@@ -1,1 +1,1 @@
-:root{--transparent-light: #ffffff15}.my-btn{height:100%;background-color:#0000;color:var(--bs-body-color);text-align:center;cursor:pointer;padding:1px;border-radius:15%}.my-btn:hover{background-color:var(--transparent-light)}.entry-delete{visibility:hidden}tr:hover .entry-delete{visibility:visible}
+:root{--transparent-light: #ffffff15}.my-btn{height:100%;background-color:#0000;color:var(--bs-body-color);text-align:center;cursor:pointer;padding:1px;border-radius:15%}.my-btn:hover{background-color:var(--transparent-light)}

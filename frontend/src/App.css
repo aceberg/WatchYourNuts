@@ -17,11 +17,3 @@
     background-color: var(--transparent-light);
 }
 
-/* Hide del button */
-.entry-delete {
-    visibility: hidden;
-}
-
-tr:hover .entry-delete {
-    visibility: visible;
-}
