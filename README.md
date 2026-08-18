@@ -7,6 +7,8 @@
 </a>WatchYourNuts</h1>
 <br/>
 
+WatchYourNuts (aka Nutrients): self-hosted calorie tracker
+
 ![Screenshot_1](https://raw.githubusercontent.com/aceberg/WatchYourNuts/main/assets/Screenshot_1.png)  
 
 ## Quick start
@@ -16,7 +18,7 @@ docker run --name WatchYourNuts \
 -e "TZ=$YOURTIMEZONE" \
 -v ~/.dockerdata/WatchYourNuts:/data/WatchYourNuts \
 -p 8860:8860 \
-aceberg/WatchYourNuts
+aceberg/watchyournuts
 ```
 
 ## Config
