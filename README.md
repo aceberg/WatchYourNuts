@@ -1,6 +1,6 @@
 [![Docker](https://github.com/aceberg/WatchYourNuts/actions/workflows/main-docker-all.yml/badge.svg)](https://github.com/aceberg/WatchYourNuts/actions/workflows/main-docker-all.yml)
 [![Binary-release](https://github.com/aceberg/WatchYourNuts/actions/workflows/binary-release.yml/badge.svg)](https://github.com/aceberg/WatchYourNuts/actions/workflows/binary-release.yml)
-![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/aceberg/WatchYourNuts)
+![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/aceberg/watchyournuts)
 
 <h1><a href="https://github.com/aceberg/WatchYourNuts">
     <img src="https://raw.githubusercontent.com/aceberg/WatchYourNuts/main/assets/logo.png" width="20" />

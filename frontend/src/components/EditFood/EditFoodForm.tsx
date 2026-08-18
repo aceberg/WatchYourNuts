@@ -86,7 +86,7 @@ function EditFoodForm(_props: any) {
           </tr>
           <tr>
             <td>Portion Size (g)</td>
-            <td><input class="form-control" type="number" value={food.Size} step={10}
+            <td><input class="form-control" type="number" value={food.Size}
                 onInput={(e) => setFood("Size", Number(e.currentTarget.value))}/></td>
           </tr>
           <tr>

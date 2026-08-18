@@ -39,7 +39,7 @@ export function formatNumber(amount: number): string {
 }
 
 export function stringToNumber(amount: string): number {
-    return (Number(amount) * 100);
+    return Math.round(Number(amount) * 100);
 }
 
 export function changeDate(date: string, days: number): string {
