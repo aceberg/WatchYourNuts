@@ -1,16 +1,18 @@
 import { createSignal, Show } from "solid-js"
 import { entryStore } from "../../store/entries"
 import { changeDate } from "../../functions/format"
+import Confirm from "../All/Confirm";
 
 function EntryCopyDel(_props: any) {
 
   const [copyDate, setCopyDate] = createSignal<string>(changeDate(entryStore.entryDate(), 1));
+  const [confirmDelete, setConfirmDelete] = createSignal<boolean>(false);
 
   const handleDelete = async () => {
-    if (confirm(`Delete ID: ${_props.ids}?`)) {
-      await entryStore.remove(_props.ids);
-      _props.clearSelected();
-    }
+    
+    setConfirmDelete(false);
+    await entryStore.remove(_props.ids);
+    _props.clearSelected();
   };
 
   const handleCopy = async () => {
@@ -37,7 +39,15 @@ function EntryCopyDel(_props: any) {
           </div>
           <button class="btn btn-sm btn-primary" onClick={handleMeal}
             title="Change Meal tag to current">Meal</button>
-          <button class="btn btn-sm btn-danger" onClick={handleDelete}>Delete</button>
+          <div class="position-relative">
+            <button class="btn btn-sm btn-danger" onClick={() => setConfirmDelete(true)}>Delete</button>
+            <Confirm
+              show={confirmDelete()}
+              message={`Delete ID: ${_props.ids}?`}
+              onConfirm={handleDelete}
+              onCancel={() => setConfirmDelete(false)}
+            />
+          </div>
         </div>
       </Show>
     </td></tr>

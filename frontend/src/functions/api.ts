@@ -1,4 +1,4 @@
-import { Food } from "./models";
+import { Conf, Food } from "./models";
 
 export const apiPath = 'http://127.0.0.1:8840';
 
@@ -56,12 +56,23 @@ export const apiAddEntry = async (entry: Food) => {
 };
 
 export const apiAddFood = async (food: Food) => {
-  
+
   await fetch(`${apiPath}/api/food`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(food),
+  });
+};
+
+export const apiAddConf = async (conf: Conf) => {
+  
+  await fetch(`${apiPath}/api/config`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(conf),
   });
 };

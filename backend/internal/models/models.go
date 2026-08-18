@@ -2,10 +2,10 @@ package models
 
 // Conf - app config
 type Conf struct {
-	Host     string `form:"host"`
-	Port     string `form:"port"`
-	Theme    string `form:"theme"`
-	Color    string `form:"color"`
+	Host     string
+	Port     string
+	Theme    string
+	Color    string
 	DirPath  string
 	ConfPath string
 	DBPath   string

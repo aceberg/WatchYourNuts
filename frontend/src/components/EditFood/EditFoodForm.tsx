@@ -4,6 +4,8 @@ import { foodStore } from "../../store/foods";
 import { formatNumber, stringToNumber } from "../../functions/format";
 import { SquareXIcon } from "../../functions/icons";
 import { useNavigate } from "@solidjs/router";
+import { createSignal } from "solid-js";
+import Confirm from "../All/Confirm";
 
 function EditFoodForm(_props: any) {
 
@@ -17,11 +19,12 @@ function EditFoodForm(_props: any) {
     navigate("/");
   };
 
+  const [confirmDelete, setConfirmDelete] = createSignal<boolean>(false);
+
   const handleDelete = async () => {
-    if (confirm(`Delete ID: ${food.ID}?`)) {
-      await foodStore.remove(food.ID);
-      navigate("/");
-    }
+    setConfirmDelete(false);
+    await foodStore.remove(food.ID);
+    navigate("/");
   };
 
   return (
@@ -29,10 +32,18 @@ function EditFoodForm(_props: any) {
     <div class="card-header">
       <div class="d-flex justify-content-between">
         {food.ID === 0 ? "Add" : "Edit"} Food
-        {food.ID === 0 ? "" : 
-          <div class="my-btn py-1 px-2" title="Delete" onClick={handleDelete}>
-            <SquareXIcon></SquareXIcon>
-          </div>}
+        {food.ID !== 0 &&
+          <div class="position-relative">
+            <div class="my-btn py-1 px-2" onClick={() => setConfirmDelete(true)}      title="Delete"><SquareXIcon></SquareXIcon></div>
+
+            <Confirm
+              show={confirmDelete()}
+              message={`Delete ID: ${food.ID}?`}
+              onConfirm={handleDelete}
+              onCancel={() => setConfirmDelete(false)}
+            />
+          </div>
+        }
       </div>
     </div>
     <div class="card-body table-responsive">

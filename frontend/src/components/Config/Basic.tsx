@@ -1,33 +1,45 @@
 import { For, Show } from "solid-js";
 import { apiPath } from "../../functions/api"
 import { configStore } from "../../store/configs";
+import { Conf } from "../../functions/models";
+import { createStore } from "solid-js/store";
 
 function Basic() {
 
   const themes = ["cerulean", "cosmo", "cyborg", "darkly", "emerald", "flatly", "grass", "grayscale", "journal", "litera", "lumen", "lux", "materia", "minty", "morph", "ocean", "pulse", "quartz", "sand", "sandstone", "simplex", "sketchy", "slate", "solar", "spacelab", "superhero", "united", "vapor", "wood", "yeti", "zephyr"];
 
+  const [conf, setConf] = createStore<Conf>(configStore.config);
+
   const handleTheme = (theme:string) => {
+    setConf("Theme", theme);
     configStore.setThemePath(apiPath+"/fs/public/themes/"+theme+"/bootstrap.min.css");
   };
 
   const handleColor = (color:string) => {
+    setConf("Color", color);
     configStore.changeBackColor(color);
+  };
+
+  const submit = async (e: SubmitEvent) => {
+    e.preventDefault();
+
+    await configStore.add(conf);
   };
 
   return (
     <div class="card border-primary">
       <div class="card-header">Basic config</div>
       <div class="card-body table-responsive">
-        <form action={apiPath + '/api/config/'} method="post">
+        <form onSubmit={submit}>
           <table class="table table-borderless">
           <tbody>
             <tr>
               <td>Host</td>
-              <td><input name="host" type="text" class="form-control" value={configStore.config.Host}></input></td>
+              <td><input name="host" type="text" class="form-control" value={conf.Host}   onInput={(e) => setConf("Host", e.currentTarget.value)}></input></td>
             </tr>
             <tr>
               <td>Port</td>
-              <td><input name="port" type="text" class="form-control" value={configStore.config.Port}></input></td>
+              <td><input name="port" type="text" class="form-control" value={conf.Port} onInput={(e) => setConf("Port", e.currentTarget.value)}></input></td>
             </tr>
             <tr>
               <td>Theme</td>
@@ -35,7 +47,7 @@ function Basic() {
                 <select name="theme" class="form-select" onChange={(e)=>handleTheme(e.currentTarget.value)}>
                 <For each={themes}>{theme =>
                   <Show
-                    when={theme == configStore.config.Theme}
+                    when={theme == conf.Theme}
                     fallback={<option value={theme}>{theme}</option>}
                   >
                     <option value={theme} selected>{theme}</option>
@@ -49,7 +61,7 @@ function Basic() {
                <td>
                 <select name="color" class="form-select" onChange={(e)=>handleColor(e.currentTarget.value)}>
                 <Show
-                  when={configStore.config.Color == "dark"}
+                  when={conf.Color == "dark"}
                   fallback={<>
                     <option value="dark">dark</option>
                     <option value="light" selected>light</option>

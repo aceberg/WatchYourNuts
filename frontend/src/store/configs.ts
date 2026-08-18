@@ -1,6 +1,6 @@
 import { createStore } from "solid-js/store";
 import { Conf, emptyConf } from "../functions/models";
-import { apiGetConfig, apiGetDate, apiPath } from "../functions/api";
+import { apiAddConf, apiGetConfig, apiGetDate, apiPath } from "../functions/api";
 import { createSignal } from "solid-js";
 
 const [config, setConfig] = createStore<Conf>(emptyConf);
@@ -34,6 +34,12 @@ async function reload() {
     setThemePath(apiPath+"/fs/public/themes/"+theme+"/bootstrap.min.css");
 }
 
+async function add(conf: Conf) {
+
+    await apiAddConf(conf);
+    await reload();
+}
+
 export const configStore = {
     config,
     themePath,
@@ -41,6 +47,7 @@ export const configStore = {
 
     setThemePath,
 
+    add,
     reload,
     changeBackColor,
     syncDate,

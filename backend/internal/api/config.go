@@ -21,7 +21,9 @@ func saveConfig(c *gin.Context) {
 	if !check.IfError(err) {
 		conf.AppConfig = config
 		conf.Write(conf.AppConfig)
-	}
 
-	c.Redirect(http.StatusFound, c.Request.Referer())
+		c.JSON(http.StatusOK, gin.H{"ok": true})
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"ok": false})
+	}
 }

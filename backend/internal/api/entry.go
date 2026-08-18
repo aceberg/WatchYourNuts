@@ -29,12 +29,7 @@ func getEntries(c *gin.Context) {
 	date := strings.TrimPrefix(c.Param("date"), "/")
 
 	if date != "" {
-		after := c.Query("after")
-		if after == "yes" {
-			entries, err = gdb.GetEntriesAfter(date)
-		} else {
-			entries, err = gdb.SelectEntriesByDate(date)
-		}
+		entries, err = gdb.SelectEntriesByDate(date)
 	} else {
 		entries, err = gdb.SelectEntries()
 	}
@@ -52,6 +47,10 @@ func addEntry(c *gin.Context) {
 
 		if entry.Date == "" {
 			entry.Date = time.Now().Format("2006-01-02")
+		}
+
+		if entry.Link != "" && entry.ID == 0 {
+			check.URL(entry.Name, entry.Link)
 		}
 
 		err = gdb.UpdateEntry(entry)
