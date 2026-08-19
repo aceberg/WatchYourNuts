@@ -1,4 +1,5 @@
 import Basic from "../components/Config/Basic"
+import Plan from "../components/Config/Plan"
 
 function Config() {
 
@@ -8,7 +9,7 @@ function Config() {
         <Basic></Basic>
       </div>
       <div class="col-md mt-4">
-        
+        <Plan></Plan>
       </div>
     </div>
   )

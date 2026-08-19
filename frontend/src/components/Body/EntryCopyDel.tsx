@@ -28,9 +28,9 @@ function EntryCopyDel(_props: any) {
   };
 
   return (
-    <tr><td colSpan={7} class="border-bottom">
+    <tr><td colSpan={7}>
       <Show when={_props.ids.length > 0}>
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between mt-1">
           <div class="input-group w-auto">
             <button class="btn btn-sm btn-primary" onClick={handleCopy}>Copy to</button>
             <input type="date" class="form-control form-control-sm"

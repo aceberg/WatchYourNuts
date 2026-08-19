@@ -2,9 +2,9 @@ import { createMemo, createSignal, For, onMount } from "solid-js";
 import { entryStore } from "../../store/entries";
 import EntryRow from "./EntryRow";
 import { CalCheckIcon, CartLeft, CartRight } from "../../functions/icons";
-import BothRow from "./BothRow";
 import EntryCopyDel from "./EntryCopyDel";
 import { configStore } from "../../store/configs";
+import Totals from "./Totals";
 
 function EntryCard() {
 
@@ -77,14 +77,10 @@ function EntryCard() {
             </>
           )}</For>
           <EntryCopyDel ids={selectedIds()} clearSelected={handleClearSelected}></EntryCopyDel>
-          <tr class="small"><td colSpan={7}><b>Total</b></td></tr>
-          <tr>
-            <td></td>
-            <BothRow food={entryStore.total()}></BothRow>
-            <td class="small">{entryStore.total().Size}<sub class="opacity-50 small"> G</sub></td>
-          </tr>
         </tbody>
       </table>
+      <hr></hr>
+      <Totals></Totals>
     </div>
   </div>
   )

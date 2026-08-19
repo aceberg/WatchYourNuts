@@ -10,6 +10,10 @@ type Conf struct {
 	ConfPath string
 	DBPath   string
 	Version  string
+	Protein  int64
+	Fat      int64
+	Carbs    int64
+	Calories int64
 }
 
 // Food is one food item

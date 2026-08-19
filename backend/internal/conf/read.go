@@ -14,6 +14,11 @@ func readConfig(path string) (config models.Conf) {
 	viper.SetDefault("THEME", "emerald")
 	viper.SetDefault("COLOR", "light")
 
+	viper.SetDefault("PROTEIN", 0)
+	viper.SetDefault("FAT", 0)
+	viper.SetDefault("CARBS", 0)
+	viper.SetDefault("CALORIES", 0)
+
 	viper.AutomaticEnv() // Get ENVIRONMENT variables
 
 	viper.SetConfigFile(path)

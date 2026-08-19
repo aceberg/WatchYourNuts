@@ -22,6 +22,11 @@ func Write(config models.Conf) {
 	viper.Set("THEME", config.Theme)
 	viper.Set("COLOR", config.Color)
 
+	viper.Set("PROTEIN", config.Protein)
+	viper.Set("FAT", config.Fat)
+	viper.Set("CARBS", config.Carbs)
+	viper.Set("CALORIES", config.Calories)
+
 	err := viper.WriteConfig()
 	check.IfError(err)
 }

@@ -3,6 +3,10 @@ export interface Conf {
 	Port:	   string;
 	Theme:	   string;
 	Color:     string;
+	Protein:   number;
+	Fat:	   number;
+	Carbs:	   number;
+	Calories:  number;
 };
 
 export interface Food {
@@ -38,4 +42,8 @@ export const emptyConf:Conf = {
 	Port:	 "",
 	Theme:	 "",
 	Color:   "",
+	Protein:   0,
+	Fat:	   0,
+	Carbs:	   0,
+	Calories:  0,
 };
