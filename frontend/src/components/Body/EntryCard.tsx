@@ -52,7 +52,7 @@ function EntryCard() {
       <div class="d-flex justify-content-between">
         <div class="d-flex justify-content-between">
           <select class="form-select form-select-sm w-auto" value={entryStore.mealTag()}
-            onChange={e => entryStore.setMealTag(e.currentTarget.value)} title="Meal">
+            onChange={e => entryStore.saveMealTag(e.currentTarget.value)} title="Meal">
             {[1, 2, 3, 4, 5, 6, 7].map(n => (
               <option value={n}>{n}</option>
             ))}

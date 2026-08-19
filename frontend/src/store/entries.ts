@@ -8,7 +8,7 @@ import { changeDate } from "../functions/format";
 const [entries, setEntries] = createStore<Food[]>([]);
 const [entryDate, setEntryDate] = createSignal<string>(configStore.today());
 const [total, setTotal] = createSignal<Food>(emptyFood);
-const [mealTag, setMealTag] = createSignal<string>("1");
+const [mealTag, setMealTag] = createSignal<string>(localStorage.getItem("mealTag") || "1");
 
 async function reload() {
 
@@ -94,6 +94,12 @@ async function updMealTag(idsArray: number[]) {
     await reload();
 }
 
+function saveMealTag(meal: string) {
+
+    localStorage.setItem("mealTag", meal);
+    setMealTag(meal);
+}
+
 export const entryStore = {
     entries,
     entryDate,
@@ -101,7 +107,6 @@ export const entryStore = {
     mealTag,
 
     setEntryDate,
-    setMealTag,
 
     add,
     reload,
@@ -109,4 +114,5 @@ export const entryStore = {
     moveDate,
     copyToDate,
     updMealTag,
+    saveMealTag,
 };

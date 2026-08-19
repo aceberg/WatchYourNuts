@@ -9,6 +9,7 @@ import (
 	"github.com/aceberg/WatchYourNuts/internal/api"
 	"github.com/aceberg/WatchYourNuts/internal/check"
 	"github.com/aceberg/WatchYourNuts/internal/conf"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -43,17 +44,17 @@ func Gui() {
 
 	gin.SetMode(gin.ReleaseMode)
 	// PROD
-	router := gin.New()
-	router.Use(gin.Recovery())
+	// router := gin.New()
+	// router.Use(gin.Recovery())
 	// PROD
 
 	// DEV
-	// router := gin.Default()
-	// router.Use(cors.New(cors.Config{
-	// 	AllowOrigins: []string{"http://localhost:5173", "http://127.0.0.1:5173"},
-	// 	AllowMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-	// 	AllowHeaders: []string{"Origin", "Content-Type"},
-	// }))
+	router := gin.Default()
+	router.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"http://localhost:5173", "http://127.0.0.1:5173"},
+		AllowMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders: []string{"Origin", "Content-Type"},
+	}))
 	// DEV
 
 	templ := template.Must(template.New("").ParseFS(templFS, "templates/*"))

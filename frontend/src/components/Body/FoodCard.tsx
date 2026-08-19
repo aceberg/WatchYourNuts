@@ -5,11 +5,10 @@ import { IconPlus } from "../../functions/icons";
 
 function FoodCard() {
 
-  const [selectedGroup, setSelectedGroup] = createSignal("");
   const [search, setSearch] = createSignal("");
 
   const filteredFoods = createMemo(() => {
-    const group = selectedGroup();
+    const group = foodStore.selectedGroup();
     const q = search().trim().toLowerCase();
 
     const groupMatch = group
@@ -30,13 +29,13 @@ function FoodCard() {
     <div class="card-header">
       <div class="d-flex justify-content-between">
         <select class="form-select form-select-sm w-auto" title="Tag, Group"
-          onChange={e => setSelectedGroup(e.currentTarget.value)}>
-            <option value=""></option>
+          onChange={e => foodStore.saveSelectedGroup(e.currentTarget.value)}>
+            <option value="" selected={foodStore.selectedGroup() === ""}>ALL</option>
             <For each={foodStore.tags}>{(tag) =>
-              <option value={tag}>{tag}</option>
+              <option value={tag} selected={foodStore.selectedGroup() === tag}>{tag}</option>
             }</For>
             <For each={foodStore.groups}>{(group) =>
-              <option value={group}>{group}</option>
+              <option value={group} selected={foodStore.selectedGroup() === group}>{group}</option>
             }</For>
         </select>
         <input type="search" class="form-control form-control-sm w-25" title="Search" placeholder="Search" onInput={e => setSearch(e.currentTarget.value)} value={search()}></input>

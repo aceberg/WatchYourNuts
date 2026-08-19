@@ -2,6 +2,8 @@ package api
 
 import (
 	"net/http"
+	"sort"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 
@@ -24,6 +26,11 @@ func deleteFood(c *gin.Context) {
 func getFoods(c *gin.Context) {
 	allFoods, err := gdb.SelectFoods()
 	check.IfError(err)
+
+	sort.Slice(allFoods, func(i, j int) bool {
+		return strings.ToLower(allFoods[i].Name) < strings.ToLower(allFoods[j].Name)
+	})
+
 	c.JSON(http.StatusOK, allFoods)
 }
 
