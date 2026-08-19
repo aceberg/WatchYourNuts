@@ -9,7 +9,7 @@
 
 WatchYourNuts (aka Nutrients): self-hosted calorie tracker
 
-![Screenshot_1](https://raw.githubusercontent.com/aceberg/WatchYourNuts/main/assets/Screenshot_1.png)  
+![Screenshot_2](https://raw.githubusercontent.com/aceberg/WatchYourNuts/main/assets/Screenshot_2.png)  
 
 ## Quick start
 

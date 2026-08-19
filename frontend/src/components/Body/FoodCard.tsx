@@ -28,7 +28,7 @@ function FoodCard() {
   <div class="card border-primary">
     <div class="card-header">
       <div class="d-flex justify-content-between">
-        <select class="form-select form-select-sm w-auto" title="Tag, Group"
+        <select class="form-select form-select-sm w-auto" title="Filter by Tag or Group"
           onChange={e => foodStore.saveSelectedGroup(e.currentTarget.value)}>
             <option value="" selected={foodStore.selectedGroup() === ""}>ALL</option>
             <For each={foodStore.tags}>{(tag) =>

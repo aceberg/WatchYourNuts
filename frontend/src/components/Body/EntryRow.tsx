@@ -21,14 +21,16 @@ function EntryRow(_props: any) {
         </input>
       </td>
       <BothRow food={_props.food}></BothRow>
-      <td class="d-flex justify-content-between p-0" style="width: 6em">
-        <input
-          type="number" step="10" title="Portion Size (g)"
-          class="form-control form-control-sm p-0 ps-1"
-          value={size()} onInput={(e) => setSize(Number(e.currentTarget.value))}
-        />
-        <div class="my-btn px-1" onClick={handleSave} title="Save">
-          <IconCheck></IconCheck>
+      <td class="p-0" style="width: 6em">
+        <div class="d-flex justify-content-between">
+          <input
+            type="number" step="10" title="Portion Size (g)"
+            class="form-control form-control-sm p-0 ps-1"
+            value={size()} onInput={(e) => setSize(Number(e.currentTarget.value))}
+          />
+          <div class="my-btn px-1" onClick={handleSave} title="Save">
+            <IconCheck></IconCheck>
+          </div>
         </div>
       </td>
     </tr>

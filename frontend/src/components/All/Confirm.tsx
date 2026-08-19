@@ -11,7 +11,7 @@ function Confirm(props: ConfirmProps) {
   return (
     <Show when={props.show}>
       <div
-        class="position-absolute border rounded shadow p-2"
+        class="position-absolute border border-primary rounded shadow p-2"
         style={{
           top: "100%",
           right: "0",

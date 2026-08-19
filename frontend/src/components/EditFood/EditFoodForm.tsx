@@ -38,7 +38,7 @@ function EditFoodForm(_props: any) {
 
             <Confirm
               show={confirmDelete()}
-              message={`Delete ID: ${food.ID}?`}
+              message={`Delete?`}
               onConfirm={handleDelete}
               onCancel={() => setConfirmDelete(false)}
             />
@@ -65,7 +65,7 @@ function EditFoodForm(_props: any) {
                 onInput={(e) => setFood("Tag", e.currentTarget.value)}/></td>
           </tr>
           <tr>
-            <td>Prot / 100g</td>
+            <td>Protein / 100g</td>
             <td><input class="form-control" type="text" value={formatNumber(food.Prot)} 
                 onInput={(e) => setFood("Prot", stringToNumber(e.currentTarget.value))}/></td>
           </tr>
@@ -75,12 +75,12 @@ function EditFoodForm(_props: any) {
                 onInput={(e) => setFood("Fat", stringToNumber(e.currentTarget.value))}/></td>
           </tr>
           <tr>
-            <td>Carb / 100g</td>
+            <td>Carbs / 100g</td>
             <td><input class="form-control" type="text" value={formatNumber(food.Carb)} 
                 onInput={(e) => setFood("Carb", stringToNumber(e.currentTarget.value))}/></td>
           </tr>
           <tr>
-            <td>Kcal / 100g</td>
+            <td>Calories / 100g</td>
             <td><input class="form-control" type="text" value={formatNumber(food.Kcal)} 
                 onInput={(e) => setFood("Kcal", stringToNumber(e.currentTarget.value))}/></td>
           </tr>

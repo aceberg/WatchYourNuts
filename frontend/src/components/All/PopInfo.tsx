@@ -32,7 +32,7 @@ function PopInfo(props: PopInfoProps) {
   return (
     <Show when={props.show}>
       <div
-        class="position-absolute border rounded shadow p-2"
+        class="position-absolute border border-primary rounded shadow p-2"
         style={{
           top: "100%",
           right: "0",
@@ -43,9 +43,7 @@ function PopInfo(props: PopInfoProps) {
           color: "var(--bs-body-color)"
         }}
       >
-        <div class="small mb-2">
-          {props.message}
-        </div>
+        {props.message}
       </div>
     </Show>
   );
