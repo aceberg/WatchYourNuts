@@ -22,13 +22,13 @@ function EntryCard() {
     setSelectedIds([]);
   }
 
-  const handleDate = async (date: string) => {
+  const handleDate = (date: string) => {
     entryStore.setEntryDate(date);
-    await entryStore.reload();
+    entryStore.reload();
   }
 
-  onMount(async () => {
-    await entryStore.reload();
+  onMount(() => {
+    entryStore.reload();
   });
 
   const groupedEntries = createMemo(() => {

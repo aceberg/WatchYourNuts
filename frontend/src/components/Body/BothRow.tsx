@@ -2,14 +2,15 @@ import { createResource, createSignal } from "solid-js";
 import { formatNumber } from "../../functions/format";
 import PopInfo from "../All/PopInfo";
 import { apiGetLinkRes } from "../../functions/api";
+import { entryStore } from "../../store/entries";
 
 function BothRow(_props: any) {
 
   const [showInfo, setShowInfo] = createSignal<boolean>(false);
 
   const [linkRes] = createResource(
-    () => _props.food.Link,
-    (link) => apiGetLinkRes(link)
+    () => [_props.food.Link, entryStore.linkRefresh()],
+    ([link]) => link ? apiGetLinkRes(link) : ""
   );
 
   return (

@@ -20,8 +20,8 @@ function FoodCard() {
     : groupMatch;
   });
 
-  onMount(async () => {
-    await foodStore.reload();
+  onMount(() => {
+    foodStore.reload();
   });
 
   return (

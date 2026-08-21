@@ -2,6 +2,7 @@ import { createEffect, createSignal, Show } from "solid-js"
 import { entryStore } from "../../store/entries"
 import { changeDate } from "../../functions/format"
 import Confirm from "../All/Confirm";
+import { configStore } from "../../store/configs";
 
 function EntryCopyDel(_props: any) {
 
@@ -9,26 +10,30 @@ function EntryCopyDel(_props: any) {
   const [confirmDelete, setConfirmDelete] = createSignal<boolean>(false);
 
   createEffect(() => {
-    setCopyDate(changeDate(entryStore.entryDate(), 1));
+    if (entryStore.entryDate() >= configStore.today()) {
+      setCopyDate(changeDate(entryStore.entryDate(), 1));
+    } else {
+      setCopyDate(configStore.today());
+    }
   });
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     
     setConfirmDelete(false);
-    await entryStore.remove(_props.ids);
+    void entryStore.remove(_props.ids);
     _props.clearSelected();
   };
 
-  const handleCopy = async () => {
-    
-    await entryStore.copyToDate(_props.ids, copyDate());
-    _props.clearSelected();    
+  const handleCopy = () => {
+
+    void entryStore.copyToDate(_props.ids, copyDate());
+    _props.clearSelected();
   };
 
-  const handleMeal = async () => {
+  const handleMeal = () => {
     
-    await entryStore.updMealTag(_props.ids);
-    _props.clearSelected();    
+    void entryStore.updMealTag(_props.ids);    
+    _props.clearSelected();
   };
 
   return (

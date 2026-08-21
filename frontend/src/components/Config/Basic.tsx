@@ -20,10 +20,10 @@ function Basic() {
     configStore.changeBackColor(color);
   };
 
-  const submit = async (e: SubmitEvent) => {
+  const submit = (e: SubmitEvent) => {
     e.preventDefault();
 
-    await configStore.add(conf);
+    configStore.add(conf);
   };
 
   return (

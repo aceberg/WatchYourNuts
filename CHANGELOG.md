@@ -3,8 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## [v0.1.3] - 2026-08-
 ### Added
+- Mutex for DB
 - `Copy to` date fix
-- UI update (url -> number)
+- UI updates and fixes
 
 ## [v0.1.2] - 2026-08-19
 ### Added

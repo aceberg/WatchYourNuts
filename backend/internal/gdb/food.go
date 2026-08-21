@@ -7,6 +7,9 @@ import (
 // UpdateFood - update or create Food
 func UpdateFood(food models.Food) (err error) {
 
+	writeMu.Lock()
+	defer writeMu.Unlock()
+
 	tab := db.Table("foods")
 	err = tab.Save(&food).Error
 
@@ -15,6 +18,9 @@ func UpdateFood(food models.Food) (err error) {
 
 // DeleteFood - delete Food from DB
 func DeleteFood(id int) (err error) {
+
+	writeMu.Lock()
+	defer writeMu.Unlock()
 
 	tab := db.Table("foods")
 	err = tab.Delete(&models.Food{}, id).Error
@@ -30,12 +36,3 @@ func SelectFoods() (foods []models.Food, err error) {
 
 	return foods, err
 }
-
-// ToggleFoodHide changes hide
-// func ToggleFoodHide(id int) (err error) {
-
-// 	tab := db.Table("foods")
-// 	err = tab.Where("id = ?", id).Update("hide", gorm.Expr("NOT hide")).Error
-
-// 	return err
-// }

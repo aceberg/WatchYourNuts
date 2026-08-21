@@ -3,6 +3,7 @@ package gdb
 import (
 	"log"
 	"os"
+	"sync"
 	"time"
 
 	sqlite "github.com/aceberg/gorm-sqlite"
@@ -17,6 +18,7 @@ import (
 
 var db *gorm.DB
 var gormConf *gorm.Config
+var writeMu sync.Mutex
 
 // Start working with DB
 func Start() {
@@ -33,6 +35,9 @@ func Start() {
 		},
 	)
 	gormConf = &gorm.Config{Logger: newLogger}
+
+	writeMu.Lock()
+	defer writeMu.Unlock()
 
 	Connect()
 
@@ -55,6 +60,7 @@ func Connect() {
 	if !check.IfError(err) {
 		log.Println("INFO: Connected to DB: SQLite")
 		db.Exec("PRAGMA journal_mode = wal;")
+		db.Exec("PRAGMA synchronous = NORMAL;")
 		db.Exec("PRAGMA busy_timeout = 5000;")
 	}
 }

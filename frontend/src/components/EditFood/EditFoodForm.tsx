@@ -12,18 +12,18 @@ function EditFoodForm(_props: any) {
   const [food, setFood] = createStore<Food>(_props.food);
   const navigate = useNavigate();
 
-  const submit = async (e: SubmitEvent) => {
+  const submit = (e: SubmitEvent) => {
     e.preventDefault();
 
-    await foodStore.add(food);
+    foodStore.add(food);
     navigate("/");
   };
 
   const [confirmDelete, setConfirmDelete] = createSignal<boolean>(false);
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     setConfirmDelete(false);
-    await foodStore.remove(food.ID);
+    foodStore.remove(food.ID);
     navigate("/");
   };
 
@@ -90,9 +90,12 @@ function EditFoodForm(_props: any) {
                 onInput={(e) => setFood("Size", Number(e.currentTarget.value))}/></td>
           </tr>
           <tr>
-            <td>Link</td>
+            <td>Link *</td>
             <td><input class="form-control" type="url" value={food.Link} 
                 onInput={(e) => setFood("Link", e.currentTarget.value)}/></td>
+          </tr>
+          <tr>
+            <td colSpan={2} class="opacity-50 small">* Link is a {<a href="https://github.com/aceberg/HomeLists">HomeLists</a>} URL (example: http://homelists/api/minus?table=TableNameHere&id=10) that shows number of items left and deletes one item when food is added to the menu</td>
           </tr>
           <tr>
             <td>

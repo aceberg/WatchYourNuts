@@ -7,10 +7,10 @@ function Plan() {
 
   const [conf, setConf] = createStore<Conf>(configStore.config);
 
-  const submit = async (e: SubmitEvent) => {
+  const submit = (e: SubmitEvent) => {
     e.preventDefault();
 
-    await configStore.add(conf);
+    configStore.add(conf);
   };
 
   return (

@@ -9,6 +9,7 @@ const [entries, setEntries] = createStore<Food[]>([]);
 const [entryDate, setEntryDate] = createSignal<string>(configStore.today());
 const [total, setTotal] = createSignal<Food>(emptyFood);
 const [mealTag, setMealTag] = createSignal<string>(localStorage.getItem("mealTag") || "1");
+const [linkRefresh, setLinkRefresh] = createSignal(0);
 
 async function reload() {
 
@@ -35,12 +36,12 @@ async function reload() {
 async function remove(idsArray: number[]) {
     
     const ids = new Set(idsArray);
-
-    for (const entry of entries) {
-      if (ids.has(entry.ID)) {
-        await apiDelEntry(entry.ID);
-      }
-    }
+    
+    await Promise.all(
+        entries
+            .filter(entry => ids.has(entry.ID))
+            .map(entry => apiDelEntry(entry.ID))
+        );
     await reload();
 }
 
@@ -55,6 +56,10 @@ async function add(food: Food, size: number) {
         Size: size,
     });
     await reload();
+
+    if (food.Link !== "") {
+        setLinkRefresh(v => v + 1);
+    }
 };
 
 async function moveDate(days: number) {
@@ -66,31 +71,39 @@ async function moveDate(days: number) {
 async function copyToDate(idsArray: number[], date: string) {
     
     const ids = new Set(idsArray);
+    const selectedEntries = entries.filter(entry => ids.has(entry.ID));
+    const hasLink = selectedEntries.some(entry => entry.Link !== "");
 
-    for (const entry of entries) {
-      if (ids.has(entry.ID)) {
-        await apiAddEntry({
+    await Promise.all(
+        selectedEntries.map(entry =>
+        apiAddEntry({
             ...entry,
             ID: 0,
             Date: date,
-        });
-      }
-    }
+        })
+        )
+    );
+
     await reload();
+
+    if (hasLink) {
+        setLinkRefresh(v => v + 1);
+    }
 }
 
 async function updMealTag(idsArray: number[]) {
     
     const ids = new Set(idsArray);
 
-    for (const entry of entries) {
-      if (ids.has(entry.ID)) {
-        await apiAddEntry({
-            ...entry,
-            Tag: mealTag(),
-        });
-      }
-    }
+    await Promise.all(entries
+        .filter(e => ids.has(e.ID))
+        .map(entry =>
+            apiAddEntry({
+                ...entry,
+                Tag: mealTag(),
+            })
+        )
+    );
     await reload();
 }
 
@@ -105,6 +118,7 @@ export const entryStore = {
     entryDate,
     total,
     mealTag,
+    linkRefresh,
 
     setEntryDate,
 
