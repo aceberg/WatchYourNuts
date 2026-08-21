@@ -16,6 +16,13 @@ export const apiGetDate = async () => {
   return date;
 };
 
+export const apiGetLinkRes = async (link:string) => {
+  
+  const res = await (await fetch(link)).json();
+
+  return res;
+};
+
 export const apiGetEntries = async (date:string) => {
   const url = `${apiPath}/api/entry/${date}`;
   const entries = await (await fetch(url)).json();

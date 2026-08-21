@@ -28,7 +28,9 @@ function Basic() {
 
   return (
     <div class="card border-primary">
-      <div class="card-header">Basic config</div>
+      <div class="card-header">
+        Basic config (<a href={`https://github.com/aceberg/WatchYourNuts/releases/tag/v${configStore.config.Version}`} target="_blank">v{configStore.config.Version}</a>)
+      </div>
       <div class="card-body table-responsive">
         <form onSubmit={submit}>
           <table class="table table-borderless">

@@ -1,17 +1,23 @@
-import { createSignal } from "solid-js";
+import { createResource, createSignal } from "solid-js";
 import { formatNumber } from "../../functions/format";
 import PopInfo from "../All/PopInfo";
+import { apiGetLinkRes } from "../../functions/api";
 
 function BothRow(_props: any) {
 
   const [showInfo, setShowInfo] = createSignal<boolean>(false);
+
+  const [linkRes] = createResource(
+    () => _props.food.Link,
+    (link) => apiGetLinkRes(link)
+  );
 
   return (
     <>
       <td>
         <div class="small" title={_props.food.Name}>
           {_props.food.Name}
-          {_props.food.Link && <sup class="opacity-50" title={_props.food.Link}>&nbsp;&nbsp;url</sup>}
+          {_props.food.Link && <sup class="opacity-75" title={_props.food.Link}>&nbsp;&nbsp;{linkRes()}</sup>}
         </div>
       </td>
       <td>

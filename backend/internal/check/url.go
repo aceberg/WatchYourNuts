@@ -5,17 +5,23 @@ import (
 	"net/http"
 )
 
-// URL sends GET request to link
+// URL sends DELETE request to link
 func URL(name, link string) bool {
 	var ok bool
 
-	resp, err := http.Get(link)
-	if ok = !IfError(err); ok {
-		log.Println("[INFO] GET request about", name, "to", link)
+	req, err := http.NewRequest(http.MethodDelete, link, nil)
+	if IfError(err) {
+		return false
 	}
 
-	err = resp.Body.Close()
-	IfError(err)
+	resp, err := http.DefaultClient.Do(req)
+	if ok = !IfError(err); ok {
+		log.Println("[INFO] DELETE request about", name, "to", link)
+	}
+	if resp != nil {
+		err = resp.Body.Close()
+		IfError(err)
+	}
 
 	return ok
 }

@@ -1,12 +1,16 @@
-import { createSignal, Show } from "solid-js"
+import { createEffect, createSignal, Show } from "solid-js"
 import { entryStore } from "../../store/entries"
 import { changeDate } from "../../functions/format"
 import Confirm from "../All/Confirm";
 
 function EntryCopyDel(_props: any) {
 
-  const [copyDate, setCopyDate] = createSignal<string>(changeDate(entryStore.entryDate(), 1));
+  const [copyDate, setCopyDate] = createSignal<string>("");
   const [confirmDelete, setConfirmDelete] = createSignal<boolean>(false);
+
+  createEffect(() => {
+    setCopyDate(changeDate(entryStore.entryDate(), 1));
+  });
 
   const handleDelete = async () => {
     

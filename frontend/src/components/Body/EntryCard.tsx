@@ -63,7 +63,7 @@ function EntryCard() {
           <input type="date" class="form-control form-control-sm w-auto" value={entryStore.entryDate()} onChange={(e) => handleDate(e.currentTarget.value)}></input>
           <div class="my-btn py-1 px-2" onClick={() => entryStore.moveDate(1)} title="Next Day"><CartRight /></div>
         </div>
-        <div class="my-btn py-1 px-2 ms-3" onClick={() => handleDate(configStore.today())} title="Today"><CalCheckIcon /></div>
+        <div class="my-btn py-1 px-2 ms-3" onClick={() => {configStore.syncDate(); handleDate(configStore.today())}} title="Today"><CalCheckIcon /></div>
       </div>
     </div>
     <div class="card-body table-responsive">

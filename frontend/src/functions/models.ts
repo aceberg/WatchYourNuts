@@ -7,6 +7,7 @@ export interface Conf {
 	Fat:	   number;
 	Carbs:	   number;
 	Calories:  number;
+	Version:   string;
 };
 
 export interface Food {
@@ -46,4 +47,5 @@ export const emptyConf:Conf = {
 	Fat:	   0,
 	Carbs:	   0,
 	Calories:  0,
+	Version: "",
 };
