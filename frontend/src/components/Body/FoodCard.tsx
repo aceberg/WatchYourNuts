@@ -1,4 +1,4 @@
-import { createMemo, createSignal, For, onMount } from "solid-js";
+import { createDeferred, createMemo, createSignal, For, onMount } from "solid-js";
 import { foodStore } from "../../store/foods";
 import FoodRow from "./FoodRow";
 import { IconPlus } from "../../functions/icons";
@@ -6,10 +6,11 @@ import { IconPlus } from "../../functions/icons";
 function FoodCard() {
 
   const [search, setSearch] = createSignal("");
+  const debounced = createDeferred(search);
 
   const filteredFoods = createMemo(() => {
     const group = foodStore.selectedGroup();
-    const q = search().trim().toLowerCase();
+    const q = debounced().trim().toLowerCase();
 
     const groupMatch = group
     ? foodStore.foods.filter(food => food.Group === group || food.Tag === group)

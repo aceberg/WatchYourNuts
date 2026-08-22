@@ -1,14 +1,16 @@
 import { createMemo, createSignal, For, onMount } from "solid-js";
 import { entryStore } from "../../store/entries";
 import EntryRow from "./EntryRow";
-import { CalCheckIcon, CartLeft, CartRight } from "../../functions/icons";
+import { CalCheckIcon, CartLeft, CartRight, IconPlus } from "../../functions/icons";
 import EntryCopyDel from "./EntryCopyDel";
 import { configStore } from "../../store/configs";
 import Totals from "./Totals";
+import OneTimeAdd from "./OneTimeAdd";
 
 function EntryCard() {
 
   const [selectedIds, setSelectedIds] = createSignal<number[]>([]);
+  const [showAdd, setShowAdd] = createSignal<boolean>(false);
 
   const handleSelect = (id: number, checked: boolean) => {
     setSelectedIds(ids =>
@@ -18,14 +20,11 @@ function EntryCard() {
     );
   };
 
-  const handleClearSelected = () => {
-    setSelectedIds([]);
-  }
-
   const handleDate = (date: string) => {
+    setSelectedIds([]);
     entryStore.setEntryDate(date);
     entryStore.reload();
-  }
+  };
 
   onMount(() => {
     entryStore.reload();
@@ -59,14 +58,18 @@ function EntryCard() {
           </select>
         </div>
         <div class="d-flex justify-content-between">
-          <div class="my-btn py-1 px-2" onClick={() => entryStore.moveDate(-1)} title="Previous Day"><CartLeft /></div>
+          <div class="my-btn py-1 px-2" onClick={() => {setSelectedIds([]); entryStore.moveDate(-1)}} title="Previous Day"><CartLeft /></div>
           <input type="date" class="form-control form-control-sm w-auto" value={entryStore.entryDate()} onChange={(e) => handleDate(e.currentTarget.value)}></input>
-          <div class="my-btn py-1 px-2" onClick={() => entryStore.moveDate(1)} title="Next Day"><CartRight /></div>
+          <div class="my-btn py-1 px-2" onClick={() => {setSelectedIds([]); entryStore.moveDate(1)}}title="Next Day"><CartRight /></div>
         </div>
-        <div class="my-btn py-1 px-2 ms-3" onClick={() => {configStore.syncDate(); handleDate(configStore.today())}} title="Today"><CalCheckIcon /></div>
+        <div class="d-flex justify-content-right">
+          <div class="my-btn py-1 px-2" onClick={async () => {await configStore.syncDate(); handleDate(configStore.today())}} title="Today"><CalCheckIcon /></div>
+          <div class="my-btn py-1 px-2 ms-2" title="One-time Add" onClick={() => {setShowAdd(!showAdd())}}><IconPlus /></div>
+        </div>
       </div>
     </div>
     <div class="card-body table-responsive">
+      {showAdd() ? <OneTimeAdd></OneTimeAdd> : ""}
       <table class="table table-sm table-hover table-borderless">
         <tbody>
           <For each={groupedEntries()}>{([tag, entries]) => (
@@ -76,7 +79,7 @@ function EntryCard() {
                 <EntryRow food={entry} onSelect={handleSelect} />}</For>
             </>
           )}</For>
-          <EntryCopyDel ids={selectedIds()} clearSelected={handleClearSelected}></EntryCopyDel>
+          <EntryCopyDel ids={selectedIds()} clearSelected={() => setSelectedIds([])}></EntryCopyDel>
         </tbody>
       </table>
       <hr></hr>

@@ -5,10 +5,13 @@ import { createSignal } from "solid-js";
 import { configStore } from "./configs";
 import { changeDate } from "../functions/format";
 
+export const LS_MEAL_TAG = "mealTag";
+
 const [entries, setEntries] = createStore<Food[]>([]);
+const [total, setTotal] = createStore<Food>({...emptyFood});
+
 const [entryDate, setEntryDate] = createSignal<string>(configStore.today());
-const [total, setTotal] = createSignal<Food>(emptyFood);
-const [mealTag, setMealTag] = createSignal<string>(localStorage.getItem("mealTag") || "1");
+const [mealTag, setMealTag] = createSignal<string>(localStorage.getItem(LS_MEAL_TAG) || "1");
 const [linkRefresh, setLinkRefresh] = createSignal(0);
 
 async function reload() {
@@ -109,7 +112,7 @@ async function updMealTag(idsArray: number[]) {
 
 function saveMealTag(meal: string) {
 
-    localStorage.setItem("mealTag", meal);
+    localStorage.setItem(LS_MEAL_TAG, meal);
     setMealTag(meal);
 }
 

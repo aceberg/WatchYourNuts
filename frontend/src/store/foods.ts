@@ -3,12 +3,13 @@ import { Food } from "../functions/models";
 import { apiAddFood, apiDelFood, apiGetFoods } from "../functions/api";
 import { createSignal } from "solid-js";
 
+const LS_SELECTED_GROUP = "selectedGroup";
 
 const [foods, setFoods] = createStore<Food[]>([]);
 const [groups, setGroups] = createStore<string[]>([]);
 const [tags, setTags] = createStore<string[]>([]);
 
-const [selectedGroup, setSelectedGroup] = createSignal<string>(localStorage.getItem("selectedGroup") || "");
+const [selectedGroup, setSelectedGroup] = createSignal<string>(localStorage.getItem(LS_SELECTED_GROUP) || "");
 
 async function reload() {
 
@@ -41,7 +42,7 @@ async function add(food: Food) {
 
 function saveSelectedGroup(group: string) {
 
-    localStorage.setItem("selectedGroup", group);
+    localStorage.setItem(LS_SELECTED_GROUP, group);
     setSelectedGroup(group);
 }
 

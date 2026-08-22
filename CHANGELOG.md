@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [v0.1.3] - 2026-08-
 ### Added
+- One-time Add button
 - Mutex for DB
 - `Copy to` date fix
 - UI updates and fixes

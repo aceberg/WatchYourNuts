@@ -1,20 +1,11 @@
 import { Conf, Food } from "./models";
 
-export const apiPath = 'http://127.0.0.1:8840';
+export const API_PATH = 'http://127.0.0.1:8840';
 
-export const apiGetConfig = async () => {
-  const url = `${apiPath}/api/config`;
-  const res = await (await fetch(url)).json();
-
-  return res;
-};
-
-export const apiGetDate = async () => {
-  const url = `${apiPath}/api/date`;
-  const date = await (await fetch(url)).json();
-
-  return date;
-};
+const API_PATH_CONFIG = `${API_PATH}/api/config`;
+const API_PATH_DATE   = `${API_PATH}/api/date`;
+const API_PATH_FOOD   = `${API_PATH}/api/food`;
+const API_PATH_ENTRY  = `${API_PATH}/api/entry`;
 
 export const apiGetLinkRes = async (link:string) => {
   
@@ -23,37 +14,51 @@ export const apiGetLinkRes = async (link:string) => {
   return res;
 };
 
+export const apiGetConfig = async () => {
+  
+  const res = await (await fetch(API_PATH_CONFIG)).json();
+
+  return res;
+};
+
+export const apiGetDate = async () => {
+  
+  const date = await (await fetch(API_PATH_DATE)).json();
+
+  return date;
+};
+
 export const apiGetEntries = async (date:string) => {
-  const url = `${apiPath}/api/entry/${date}`;
-  const entries = await (await fetch(url)).json();
+  
+  const entries = await (await fetch(`${API_PATH_ENTRY}/${date}`)).json();
 
   return entries;
 };
 
 export const apiGetFoods = async () => {
-  const url = `${apiPath}/api/food`;
-  const foods = await (await fetch(url)).json();
+  
+  const foods = await (await fetch(API_PATH_FOOD)).json();
 
   return foods;
 };
 
 export const apiDelEntry = async (id:number) => {
 
-  await fetch(`${apiPath}/api/entry/${id}`, {
+  await fetch(`${API_PATH_ENTRY}/${id}`, {
     method: "DELETE",
   });
 };
 
 export const apiDelFood = async (id:number) => {
 
-  await fetch(`${apiPath}/api/food/${id}`, {
+  await fetch(`${API_PATH_FOOD}/${id}`, {
     method: "DELETE",
   });
 };
 
 export const apiAddEntry = async (entry: Food) => {
 
-  await fetch(`${apiPath}/api/entry/`, {
+  await fetch(API_PATH_ENTRY, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -64,7 +69,7 @@ export const apiAddEntry = async (entry: Food) => {
 
 export const apiAddFood = async (food: Food) => {
 
-  await fetch(`${apiPath}/api/food`, {
+  await fetch(API_PATH_FOOD, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -75,7 +80,7 @@ export const apiAddFood = async (food: Food) => {
 
 export const apiAddConf = async (conf: Conf) => {
   
-  await fetch(`${apiPath}/api/config`, {
+  await fetch(API_PATH_CONFIG, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

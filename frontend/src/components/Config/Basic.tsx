@@ -1,5 +1,5 @@
 import { For, Show } from "solid-js";
-import { apiPath } from "../../functions/api"
+import { API_PATH } from "../../functions/api"
 import { configStore } from "../../store/configs";
 import { Conf } from "../../functions/models";
 import { createStore } from "solid-js/store";
@@ -12,7 +12,7 @@ function Basic() {
 
   const handleTheme = (theme:string) => {
     setConf("Theme", theme);
-    configStore.setThemePath(apiPath+"/fs/public/themes/"+theme+"/bootstrap.min.css");
+    configStore.setThemePath(API_PATH+"/fs/public/themes/"+theme+"/bootstrap.min.css");
   };
 
   const handleColor = (color:string) => {

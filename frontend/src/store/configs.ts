@@ -1,10 +1,10 @@
 import { createStore } from "solid-js/store";
 import { Conf, emptyConf } from "../functions/models";
-import { apiAddConf, apiGetConfig, apiGetDate, apiPath } from "../functions/api";
+import { apiAddConf, apiGetConfig, apiGetDate, API_PATH } from "../functions/api";
 import { createSignal } from "solid-js";
 
 const [config, setConfig] = createStore<Conf>(emptyConf);
-const [themePath, setThemePath] = createSignal<string>(apiPath+"/fs/public/themes/cerulean/bootstrap.min.css");
+const [themePath, setThemePath] = createSignal<string>(API_PATH+"/fs/public/themes/cerulean/bootstrap.min.css");
 const [today, setToday] = createSignal<string>(new Date().toJSON().slice(0, 10));
 
 function changeBackColor(color:string) {
@@ -31,7 +31,7 @@ async function reload() {
 
     changeBackColor(color);
 
-    setThemePath(apiPath+"/fs/public/themes/"+theme+"/bootstrap.min.css");
+    setThemePath(API_PATH+"/fs/public/themes/"+theme+"/bootstrap.min.css");
 }
 
 async function add(conf: Conf) {

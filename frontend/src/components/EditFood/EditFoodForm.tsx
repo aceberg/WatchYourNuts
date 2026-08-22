@@ -95,7 +95,7 @@ function EditFoodForm(_props: any) {
                 onInput={(e) => setFood("Link", e.currentTarget.value)}/></td>
           </tr>
           <tr>
-            <td colSpan={2} class="opacity-50 small">* Link is a {<a href="https://github.com/aceberg/HomeLists">HomeLists</a>} URL (example: http://homelists/api/minus?table=TableNameHere&id=10) that shows number of items left and deletes one item when food is added to the menu</td>
+            <td colSpan={2} class="opacity-50 small">* Link is a {<a href="https://github.com/aceberg/HomeLists">HomeLists</a>} URL (example: http://homelists/api/minus?table=TableNameHere&id=10) that shows current number of items and deletes one item when food is added to the menu</td>
           </tr>
           <tr>
             <td>
